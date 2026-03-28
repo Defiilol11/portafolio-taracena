@@ -58,7 +58,7 @@ Valido mis conocimientos a través de certificaciones reconocidas en la industri
 Siempre estoy abierto a discutir nuevos desafíos, arquitecturas complejas y oportunidades donde los datos y la nube puedan resolver problemas reales.
 
 * 📧 **Email:** [discover@taracena.me](mailto:discover@taracena.me)
-* 💼 **LinkedIn:** [in/carlos-taracena]([https://linkedin.com/in/tu-perfil](https://www.linkedin.com/in/carlos-taracena-836512217)) 
+* 💼 **LinkedIn:** [in/carlos-taracena](https://www.linkedin.com/in/carlos-taracena-836512217)
 * 🌐 **Website:** [taracena.me](https://taracena.me)
 
 ---
