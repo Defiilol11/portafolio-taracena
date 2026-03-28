@@ -6,5 +6,17 @@
     <li><a href="#journey">Journey</a></li>
     <li><a href="#projects">Work</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Connect</a>
+  <div class="nav-actions">
+    <button class="theme-toggle" (click)="toggleTheme()" aria-label="Toggle Theme">
+      <img
+        [src]="
+          isDarkMode
+            ? 'https://i.ibb.co/Gf3dmGJ6/minimalblack.png'
+            : 'https://i.ibb.co/ZpvBMbFT/minimalwhite.png'
+        "
+        alt="Theme Toggle"
+      />
+    </button>
+    <a href="#contact" class="nav-cta">Connect</a>
+  </div>
 </nav>
