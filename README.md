@@ -1,6 +1,6 @@
 # Carlos Taracena — Digital Portfolio & Personal Brand ⚜️
 
-> **[taracena.me](https://taracena.me)** <br>
+> **[taracena.me](https://taracena.me)**  <br>
 > *Ingeniería de Sistemas · Data · Cloud · UX/UI*
 
 Bienvenido al repositorio oficial de mi marca personal y portafolio interactivo. Este proyecto no es solo una página web; es la representación digital de mi filosofía de trabajo: **transformar la complejidad técnica en sistemas elegantes y de alto valor para el negocio.**
