@@ -47,15 +47,15 @@ export class PortfolioComponent implements OnInit {
     },
     {
       id: 3,
-      title: 'App de Salud y Bienestar',
+      title: 'API Microblogging',
       category: 'web',
       image:
-        'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1555421689-d68471e189f2?auto=format&fit=crop&q=80',
       description:
-        'Aplicación móvil PWA para monitorear rutinas de ejercicio y métricas biométricas.',
-      tech: ['Ionic', 'TypeScript', 'Redux'],
+        'Backend estilo Twitter con Node.js y Express. Arquitectura RESTful con autenticación segura vía JWT, sistema de follows, likes, feed personalizado y documentación interactiva con Swagger.',
+      tech: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'Swagger'],
       demoUrl: null,
-      githubUrl: '#',
+      githubUrl: 'https://github.com/Defiilol11/Express-API-blog',
     },
     {
       id: 4,
