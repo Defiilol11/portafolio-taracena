@@ -1,0 +1,80 @@
+<article class="project-detail-page" *ngIf="project" style="position: relative; overflow: hidden;">
+  <!-- Decorators -->
+  <div class="orb" style="width: 500px; height: 500px; top: -100px; right: -150px;"></div>
+  <div class="decor-plus" style="top: 250px; left: 10%;"></div>
+  <div class="decor-line" style="top: 500px; left: -100px; width: 400px;"></div>
+  <div class="decor-circle" style="bottom: 300px; right: 5%; width: 120px; height: 120px;"></div>
+  <div class="container">
+    <a routerLink="/proyectos" class="back-link reveal visible">
+      <span class="arrow">&larr;</span> Volver al Portafolio
+    </a>
+
+    <header class="project-header reveal visible">
+      <div class="project-category">{{ project.category }}</div>
+      <h1 class="project-title">{{ project.title }}</h1>
+      <ul class="project-tags">
+        <li *ngFor="let tag of project.tags" class="project-tag">{{ tag }}</li>
+      </ul>
+    </header>
+
+    <div class="project-content">
+      <div class="project-info reveal visible">
+        <h2>Acerca del Proyecto</h2>
+        <p>{{ project.longDescription }}</p>
+
+        <div class="project-links" *ngIf="project.githubUrl || project.demoUrl">
+          <a
+            *ngIf="project.githubUrl"
+            [href]="project.githubUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn"
+          >
+            Ver Código en GitHub
+          </a>
+          <a
+            *ngIf="project.demoUrl"
+            [href]="project.demoUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            {{ project.demoLabel || 'Ver Proyecto en Vivo' }}
+          </a>
+        </div>
+      </div>
+
+      <div class="project-embed reveal visible" *ngIf="safeEmbedUrl">
+        <h2>Demostración Interactiva</h2>
+        <div
+          class="embed-container"
+          [ngClass]="{ 'youtube-container': project.embedType === 'youtube' }"
+        >
+          <iframe
+            [src]="safeEmbedUrl"
+            frameborder="0"
+            allowfullscreen
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+          ></iframe>
+        </div>
+      </div>
+
+      <div
+        class="project-gallery reveal visible"
+        *ngIf="project.images && project.images.length > 0"
+      >
+        <h2>Galería</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item tilt-item" *ngFor="let img of project.images">
+            <img [src]="img" [alt]="project.title" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<div class="project-not-found" *ngIf="!project">
+  <h2>Proyecto no encontrado</h2>
+  <a routerLink="/proyectos">Volver a portafolio</a>
+</div>
+

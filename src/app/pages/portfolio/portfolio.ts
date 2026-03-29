@@ -4,15 +4,17 @@ import { RouterLink } from '@angular/router';
 import { PROJECTS, Project } from '../../data/projects.data';
 
 @Component({
-  selector: 'app-projects',
+  selector: 'app-portfolio',
+  standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './projects.html',
-  styleUrl: './projects.css',
+  templateUrl: './portfolio.html',
+  styleUrls: ['./portfolio.css'],
 })
-export class ProjectsComponent implements OnInit {
+export class PortfolioComponent implements OnInit {
   projects: Project[] = [];
 
   ngOnInit() {
-    this.projects = PROJECTS.slice(0, 5); // Mostrar los 5 proyectos
+    this.projects = PROJECTS;
+    window.scrollTo(0, 0);
   }
 }

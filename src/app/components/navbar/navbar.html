@@ -1,10 +1,12 @@
 <nav id="navbar">
-  <div class="nav-logo">C<span>.</span>Taracena</div>
+  <a routerLink="/" class="nav-logo" style="text-decoration: none; color: inherit; cursor: none"
+    >C<span>.</span>Taracena</a
+  >
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#expertise">Expertise</a></li>
-    <li><a href="#journey">Journey</a></li>
-    <li><a href="#projects">Work</a></li>
+    <li><a routerLink="/" fragment="about">About</a></li>
+    <li><a routerLink="/" fragment="expertise">Expertise</a></li>
+    <li><a routerLink="/" fragment="journey">Journey</a></li>
+    <li><a routerLink="/proyectos">Proyectos</a></li>
   </ul>
   <div class="nav-actions">
     <button class="theme-toggle" (click)="toggleTheme()" aria-label="Toggle Theme">
@@ -17,6 +19,6 @@
         alt="Theme Toggle"
       />
     </button>
-    <a href="#contact" class="nav-cta">Connect</a>
+    <a routerLink="/" fragment="contact" class="nav-cta">Connect</a>
   </div>
 </nav>

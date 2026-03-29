@@ -1,29 +1,28 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar';
-import { HeroComponent } from './components/hero/hero';
-import { AboutComponent } from './components/about/about';
-import { ExpertiseComponent } from './components/expertise/expertise';
-import { ExperienceComponent } from './components/experience/experience';
-import { ProjectsComponent } from './components/projects/projects';
-import { ContactComponent } from './components/contact/contact';
 import { FooterComponent } from './components/footer/footer';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    NavbarComponent,
-    HeroComponent,
-    AboutComponent,
-    ExpertiseComponent,
-    ExperienceComponent,
-    ProjectsComponent,
-    ContactComponent,
-    FooterComponent,
-  ],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './app.html',
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    // Re-initialize animations and scroll behavior on route changes
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
+      setTimeout(() => {
+        this.initRevealOnScroll();
+        window.scrollTo(0, 0); // Ensure smooth scroll top on route changes
+      }, 100);
+    });
+  }
+
   ngAfterViewInit(): void {
     this.initCursor();
     this.initNavbarScroll();
@@ -45,6 +44,39 @@ export class AppComponent implements AfterViewInit {
       my = e.clientY;
       cursor.style.left = mx + 'px';
       cursor.style.top = my + 'px';
+
+      // Magnetic 3D tilt effect on interactive cards
+      const target = e.target as HTMLElement;
+      const card = target.closest('.project-card, .expertise-card, .gallery-item') as HTMLElement;
+
+      // reset others
+      document.querySelectorAll('.project-card, .expertise-card, .gallery-item').forEach((el) => {
+        if (el !== card) {
+          (el as HTMLElement).style.transform =
+            'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        }
+      });
+
+      if (card) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        card.style.transition = 'transform 0.1s ease';
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const target = e.target as HTMLElement;
+      const card = target.closest('.project-card, .expertise-card, .gallery-item') as HTMLElement;
+      if (card) {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+      }
     });
 
     const animRing = () => {
@@ -56,25 +88,39 @@ export class AppComponent implements AfterViewInit {
     };
     animRing();
 
-    setTimeout(() => {
-      const hoverables = document.querySelectorAll('a, button, .expertise-card, .project-card');
-      hoverables.forEach((el) => {
-        el.addEventListener('mouseenter', () => {
-          cursor.style.width = '20px';
-          cursor.style.height = '20px';
-          ring.style.width = '60px';
-          ring.style.height = '60px';
-          ring.style.opacity = '0.5';
-        });
-        el.addEventListener('mouseleave', () => {
-          cursor.style.width = '10px';
-          cursor.style.height = '10px';
-          ring.style.width = '36px';
-          ring.style.height = '36px';
-          ring.style.opacity = '1';
-        });
-      });
-    }, 500);
+    document.addEventListener('mouseover', (e) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.closest('a') ||
+        target.closest('button') ||
+        target.closest('.expertise-card') ||
+        target.closest('.project-card') ||
+        target.closest('.btn')
+      ) {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        ring.style.width = '60px';
+        ring.style.height = '60px';
+        ring.style.opacity = '0.5';
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.closest('a') ||
+        target.closest('button') ||
+        target.closest('.expertise-card') ||
+        target.closest('.project-card') ||
+        target.closest('.btn')
+      ) {
+        cursor.style.width = '10px';
+        cursor.style.height = '10px';
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.opacity = '1';
+      }
+    });
   }
 
   private initNavbarScroll() {

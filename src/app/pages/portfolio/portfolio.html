@@ -1,0 +1,32 @@
+<section class="portfolio-page" style="position: relative; overflow: hidden;">
+  <!-- Decorators -->
+  <div class="orb" style="width: 600px; height: 600px; top: -200px; left: -200px;"></div>
+  <div class="decor-line" style="top: 150px; right: 0; width: 300px;"></div>
+  <div class="decor-plus" style="top: 400px; right: 10%;"></div>
+  <div class="decor-circle" style="bottom: 200px; left: 5%; width: 150px; height: 150px;"></div>
+  <div class="container">
+    <div class="section-label reveal visible">Portfolio</div>
+    <h1 class="page-title reveal visible">Mis Proyectos</h1>
+
+    <div class="projects-grid">
+      <a
+        *ngFor="let project of projects"
+        [routerLink]="['/proyectos', project.id]"
+        class="project-card reveal visible"
+      >
+        <div class="project-image-container" *ngIf="project.images.length > 0">
+          <img [src]="project.images[0]" [alt]="project.title" class="project-thumbnail" />
+        </div>
+        <div class="project-content">
+          <div class="project-num">{{ project.category }}</div>
+          <h3 class="project-title">{{ project.title }}</h3>
+          <p class="project-desc">{{ project.shortDescription }}</p>
+          <div class="project-tags">
+            <span *ngFor="let tag of project.tags" class="project-tag">{{ tag }}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
