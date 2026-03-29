@@ -1,0 +1,168 @@
+<section
+  id="portfolio-page"
+  style="
+    padding-top: 15vh;
+    padding-bottom: 10vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  "
+>
+  <div class="section-label reveal" style="text-align: center; margin-bottom: 0.5rem">Showcase</div>
+  <h2 class="section-title reveal" style="text-align: center; margin-bottom: 3rem">
+    Mis <br />Proyectos
+  </h2>
+
+  <!-- Category Filter -->
+  <div
+    class="portfolio-filters reveal"
+    style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 4rem; flex-wrap: wrap"
+  >
+    @for (category of categories; track category.id) {
+      <button
+        (click)="filterProjects(category.id)"
+        style="
+          padding: 0.5rem 1.5rem;
+          border: 1px solid var(--gold);
+          border-radius: 50px;
+          background: transparent;
+          color: var(--charcoal);
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-family: 'DM Mono', monospace;
+          font-size: 0.8rem;
+          letter-spacing: 0.1em;
+        "
+        [style.background]="activeCategory === category.id ? 'var(--gold)' : 'transparent'"
+        [style.color]="activeCategory === category.id ? 'var(--warm-white)' : 'var(--charcoal)'"
+      >
+        {{ category.name }}
+      </button>
+    }
+  </div>
+
+  <div class="projects-grid reveal">
+    @for (project of filteredProjects; track project.id) {
+      <div class="project-card" style="display: flex; flex-direction: column; cursor: default">
+        <!-- Preview Image / PowerBI Placeholder -->
+        <div
+          class="project-media"
+          style="
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            position: relative;
+          "
+        >
+          @if (project.isPowerBi) {
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.6);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+              "
+            >
+              <span
+                style="
+                  color: white;
+                  font-weight: bold;
+                  font-family: 'DM Mono', monospace;
+                  padding: 0.5rem 1rem;
+                  background: var(--gold);
+                  border-radius: 4px;
+                  font-size: 0.8rem;
+                "
+                >Power BI Dashboard</span
+              >
+            </div>
+          }
+          <div class="image-wrapper" style="position: relative; width: 100%; height: 100%">
+            <img
+              [src]="project.image"
+              [alt]="project.title"
+              style="
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: opacity 0.5s ease;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+              "
+            />
+            @if (project.images && project.images.length > 1) {
+              <img
+                [src]="project.images[1]"
+                [alt]="project.title + ' alternate'"
+                class="hover-image"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  transition: opacity 0.5s ease;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  z-index: 2;
+                  opacity: 0;
+                "
+                onmouseover="this.style.opacity = '1'"
+                onmouseout="this.style.opacity = '0'"
+              />
+            }
+          </div>
+        </div>
+
+        <div class="project-num">0{{ project.id }} / {{ project.category | uppercase }}</div>
+        <h3 class="project-title" style="margin-bottom: 1rem">{{ project.title }}</h3>
+        <p class="project-desc" style="flex-grow: 1; margin-bottom: 1.5rem">
+          {{ project.description }}
+        </p>
+
+        <div class="project-tags" style="margin-top: auto; margin-bottom: 1.5rem">
+          @for (tech of project.tech; track tech) {
+            <span class="project-tag">{{ tech }}</span>
+          }
+        </div>
+
+        <div class="project-links" style="display: flex; gap: 1rem">
+          @if (project.githubUrl && project.githubUrl !== '#') {
+            <a
+              [href]="project.githubUrl"
+              target="_blank"
+              class="nav-cta"
+              style="padding: 0.5rem 1rem; font-size: 0.8rem; text-decoration: none"
+            >
+              Ver Código
+            </a>
+          }
+          @if (project.demoUrl && project.demoUrl !== '#') {
+            <a
+              [href]="project.demoUrl"
+              target="_blank"
+              class="nav-cta"
+              style="
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+                text-decoration: none;
+                border-color: var(--gold);
+                color: var(--gold);
+              "
+            >
+              {{ project.isPowerBi ? 'Ver Tablero' : 'Ver Demo' }}
+            </a>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
