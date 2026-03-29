@@ -1,34 +1,18 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar';
-import { HeroComponent } from './components/hero/hero';
-import { AboutComponent } from './components/about/about';
-import { ExpertiseComponent } from './components/expertise/expertise';
-import { ExperienceComponent } from './components/experience/experience';
-import { ProjectsComponent } from './components/projects/projects';
-import { ContactComponent } from './components/contact/contact';
 import { FooterComponent } from './components/footer/footer';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    NavbarComponent,
-    HeroComponent,
-    AboutComponent,
-    ExpertiseComponent,
-    ExperienceComponent,
-    ProjectsComponent,
-    ContactComponent,
-    FooterComponent,
-  ],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './app.html',
 })
 export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.initCursor();
     this.initNavbarScroll();
-    this.initRevealOnScroll();
-    this.initParallaxHeroBgText();
   }
 
   private initCursor() {
@@ -82,32 +66,6 @@ export class AppComponent implements AfterViewInit {
     if (!navbar) return;
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 60);
-    });
-  }
-
-  private initRevealOnScroll() {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e, i) => {
-          if (e.isIntersecting) {
-            setTimeout(() => e.target.classList.add('visible'), i * 80);
-          }
-        });
-      },
-      { threshold: 0.12 },
-    );
-
-    setTimeout(() => {
-      document.querySelectorAll('.reveal, .timeline-item').forEach((el) => obs.observe(el));
-    }, 100);
-  }
-
-  private initParallaxHeroBgText() {
-    const bgText = document.querySelector<HTMLElement>('.hero-bg-text');
-    if (!bgText) return;
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      bgText.style.transform = `translate(-50%, calc(-50% + ${y * 0.3}px))`;
     });
   }
 }
